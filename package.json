@@ -1,10 +1,13 @@
 {
   "devDependencies": {
-    "concurrently": "^9.1.0"
+    "concurrently": "^9.1.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.10"
   },
   "scripts": {
-    "client": "npm start --prefix client",  
-    "server": "node server/index.js",        
-    "dev": "concurrently \"npm run client\" \"npm run server\"" 
+    "client": "npm start --prefix client",
+    "server": "node server/index.js",
+    "dev": "concurrently \"npm run client\" \"npm run server\""
   }
+ 
 }
