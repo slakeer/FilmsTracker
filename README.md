@@ -1,7 +1,7 @@
-# freakbox
+# FilmsTracker
 
 Overview
-Freakbox is a movie and TV show search app designed for users to explore, rate, and track their favorite films and series. This app uses the public API to fetch movie and TV show information, allowing users to search for content, view trending releases, and engage with the community through likes, dislikes, comments, and reviews. Users can also create personal watchlists
+FilmsTracker is a movie and TV show search app designed for users to explore, rate, and track their favorite films and series. This app uses the public API to fetch movie and TV show information, allowing users to search for content, view trending releases, and engage with the community through likes, dislikes, comments, and reviews. Users can also create personal watchlists
 
 **Core Functionality:**
 
