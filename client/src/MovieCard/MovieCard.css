@@ -1,0 +1,80 @@
+.movie-card {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    max-width: 300px;
+
+  }
+  
+  .movie-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .movie-poster-container {
+    position: relative;
+  }
+  
+  .movie-poster {
+    width: 100%;
+    height: 400px;
+  }
+  
+  .movie-rating-overlay {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+  }
+  
+  .movie-rating-overlay .fas.fa-star {
+    margin-right: 6px;
+    color: #ffd700;
+  }
+  
+  .movie-details {
+    padding: 16px;
+    background-color: #fff;
+  }
+  
+  .movie-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .movie-release-date {
+    color: #666;
+    margin-bottom: 16px;
+  }
+  
+  .movie-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .watchlist-btn,
+  .trailer-btn {
+    background-color: #1d1d1dc0;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .watchlist-btn:hover,
+  .trailer-btn:hover {
+    background-color: #302f2f77;
+  }
