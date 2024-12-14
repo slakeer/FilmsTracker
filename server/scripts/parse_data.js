@@ -1,10 +1,11 @@
 import { PrismaClient } from '@prisma/client';
 import axios from 'axios';
+import { config } from '../config.js';
 
 const prisma = new PrismaClient();
 
-const OMDB_API_KEY = 'b4c23c5f';
-const OMDB_API_URL = 'http://www.omdbapi.com/';
+const OMDB_API_KEY = config.OMDb.ApiKey;
+const OMDB_API_URL = config.OMDb.ApiUrl;
 
 async function fetchMovieFromOMDB(title) {
   try {
