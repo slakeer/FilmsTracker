@@ -31,9 +31,10 @@ model Actor {
 }
 
 model Genre {
-  id         Int     @id @default(autoincrement())
-  genre_name String
-  movies     Movie[]
+  id           Int     @id @default(autoincrement())
+  external_id  Int?    @unique
+  genre_name   String
+  movie_genre MovieGenre[]
 }
 
 model Director {
@@ -45,18 +46,32 @@ model Director {
 
 model Movie {
   id             Int             @id @default(autoincrement())
+  external_id    Int?            @unique
   title          String
-  genre_id       Int
-  release_year   Int
+  release_date   DateTime
+  image_path          String
+  adult          Boolean @default(false) 
   description    String
+  tmdb_rating    Float
   rating         Float
+  tmdb_vote_count Float
+  vote_count     Float
   director_id    Int
-  genre          Genre           @relation(fields: [genre_id], references: [id])
   director       Director        @relation(fields: [director_id], references: [id])
   reviews        Review[]
-  actorMovies    ActorMovie[]
-  favoriteMovies FavoriteMovie[]
-  watchedMovies  WatchedMovie[]
+  actor_movies    ActorMovie[]
+  favorite_movies FavoriteMovie[]
+  watched_ovies  WatchedMovie[]
+  movie_genre MovieGenre[]
+
+}
+
+model MovieGenre {
+  id          Int      @id @default(autoincrement())
+  movie_id Int
+  genre_id Int 
+  genre          Genre           @relation(fields: [genre_id], references: [id])
+  movie       Movie @relation(fields: [movie_id], references: [id])
 }
 
 model Review {
@@ -71,25 +86,25 @@ model Review {
 }
 
 model ActorMovie {
-  id       Int   @id @default(autoincrement())
-  actor_id Int
-  movie_id Int
-  movie    Movie @relation(fields: [movie_id], references: [id])
-  actor    Actor @relation(fields: [actor_id], references: [id])
+  id          Int   @id @default(autoincrement())
+  actor_id    Int
+  movie_id    Int
+  movie       Movie @relation(fields: [movie_id], references: [id])
+  actor       Actor @relation(fields: [actor_id], references: [id])
 }
 
 model FavoriteMovie {
-  id       Int   @id @default(autoincrement())
-  user_id  Int
-  movie_id Int
-  movie    Movie @relation(fields: [movie_id], references: [id])
-  user     User  @relation(fields: [user_id], references: [id])
+  id          Int   @id @default(autoincrement())
+  user_id     Int
+  movie_id    Int
+  movie       Movie @relation(fields: [movie_id], references: [id])
+  user        User  @relation(fields: [user_id], references: [id])
 }
 
 model WatchedMovie {
-  id       Int   @id @default(autoincrement())
-  user_id  Int
-  movie_id Int
-  movie    Movie @relation(fields: [movie_id], references: [id])
-  user     User  @relation(fields: [user_id], references: [id])
+  id          Int   @id @default(autoincrement())
+  user_id     Int
+  movie_id    Int
+  movie       Movie @relation(fields: [movie_id], references: [id])
+  user        User  @relation(fields: [user_id], references: [id])
 }
