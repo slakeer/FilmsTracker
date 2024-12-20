@@ -41,7 +41,6 @@ model Director {
   id               Int     @id @default(autoincrement())
   director_name    String
   director_surname String
-  movies           Movie[]
 }
 
 model Movie {
@@ -53,11 +52,7 @@ model Movie {
   adult          Boolean @default(false) 
   description    String
   tmdb_rating    Float
-  rating         Float
   tmdb_vote_count Float
-  vote_count     Float
-  director_id    Int
-  director       Director        @relation(fields: [director_id], references: [id])
   reviews        Review[]
   actor_movies    ActorMovie[]
   favorite_movies FavoriteMovie[]
