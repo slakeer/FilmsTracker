@@ -13,7 +13,14 @@ export default [
     }
   },
   { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
-  { languageOptions: { globals: globals.browser } },
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node // Додаємо підтримку для Node.js
+      }
+    }
+  },
   pluginJs.configs.recommended,
   prettier, // Очищає конфлікти між ESLint і Prettier
   {

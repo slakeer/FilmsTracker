@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int             @id @default(autoincrement())
+  name           String
+  email          String          @unique
+  password       String
+  favoriteMovies FavoriteMovie[]
+  reviews        Review[]
+  watchedMovies  WatchedMovie[]
+}
+
+model Actor {
+  id            Int          @id @default(autoincrement())
+  actor_name    String
+  actor_surname String
+  actorMovies   ActorMovie[]
+}
+
+model Genre {
+  id          Int          @id @default(autoincrement())
+  genre_name  String
+  external_id Int?         @unique
+  movie_genre MovieGenre[]
+}
+
+model Director {
+  id               Int    @id @default(autoincrement())
+  director_name    String
+  director_surname String
+}
+
+model Movie {
+  id              Int             @id @default(autoincrement())
+  title           String
+  description     String
+  adult           Boolean         @default(false)
+  external_id     Int?            @unique
+  image_path      String
+  release_date    DateTime
+  tmdb_rating     Float
+  tmdb_vote_count Float
+  actor_movies    ActorMovie[]
+  favorite_movies FavoriteMovie[]
+  movie_genre     MovieGenre[]
+  reviews         Review[]
+  watched_ovies   WatchedMovie[]
+}
+
+model MovieGenre {
+  id       Int   @id @default(autoincrement())
+  movie_id Int
+  genre_id Int
+  genre    Genre @relation(fields: [genre_id], references: [id])
+  movie    Movie @relation(fields: [movie_id], references: [id])
+}
+
+model Review {
+  id          Int      @id @default(autoincrement())
+  movie_id    Int
+  user_id     Int
+  rating      Float
+  review_text String
+  review_date DateTime
+  movie       Movie    @relation(fields: [movie_id], references: [id])
+  user        User     @relation(fields: [user_id], references: [id])
+}
+
+model ActorMovie {
+  id       Int   @id @default(autoincrement())
+  actor_id Int
+  movie_id Int
+  actor    Actor @relation(fields: [actor_id], references: [id])
+  movie    Movie @relation(fields: [movie_id], references: [id])
+}
+
+model FavoriteMovie {
+  id       Int   @id @default(autoincrement())
+  user_id  Int
+  movie_id Int
+  movie    Movie @relation(fields: [movie_id], references: [id])
+  user     User  @relation(fields: [user_id], references: [id])
+}
+
+model WatchedMovie {
+  id       Int   @id @default(autoincrement())
+  user_id  Int
+  movie_id Int
+  movie    Movie @relation(fields: [movie_id], references: [id])
+  user     User  @relation(fields: [user_id], references: [id])
+}
