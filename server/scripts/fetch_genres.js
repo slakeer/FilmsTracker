@@ -1,6 +1,6 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
 const TMDB_BEARER_TOKEN = process.env.TMDB_BEARER_TOKEN;
