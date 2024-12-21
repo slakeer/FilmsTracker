@@ -3,8 +3,7 @@ import { fetchMovies } from './fetch_movies.js';
 import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
 //перейди в директорію scripts і запусти node parse_data
-dotenv.config();
-
+dotenv.config({ path: '../.env' });
 const prisma = new PrismaClient();
 
 async function main() {
