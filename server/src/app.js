@@ -1,13 +1,20 @@
 import express from 'express';
-import bodyParser from 'body-parser';
-import movieRoutes from './routes/movies.js';
-import genreRoutes from './routes/genres.js';
+// import bodyParser from 'body-parser';
+import movieRoutes from './routes/movie-routes.js';
+import genreRoutes from './routes/genre-routes.js';
+import watchedMoviesRoutes from './routes/watched-movie-routes.js';
+import favoriteMoviesRoutes from './routes/favorite-movie-routes.js';
+import reviewRoutes from './routes/review-routes.js';
+
+import { swaggerDocs, swaggerUi } from './swagger-options.js';
 
 const app = express();
-
-app.use(bodyParser.json());
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/api/movies', movieRoutes);
 app.use('/api/genres', genreRoutes);
-
+app.use('/api/watched-movies', watchedMoviesRoutes);
+app.use('/api/favorite-movies', favoriteMoviesRoutes);
+app.use('/api/reviews', reviewRoutes);
 export default app;
