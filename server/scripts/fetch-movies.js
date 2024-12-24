@@ -53,8 +53,8 @@ export async function fetchMovies(prisma, page = 1) {
           if (genre) {
             await prisma.movieGenre.create({
               data: {
-                movie_id: createdMovie.id,
-                genre_id: genre.id
+                movie_id: createdMovie.external_id,
+                genre_id: genre.external_id
               }
             });
           }

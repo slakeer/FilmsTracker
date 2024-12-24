@@ -27,7 +27,7 @@ model Actor {
 model Genre {
   id          Int          @id @default(autoincrement())
   genre_name  String
-  external_id Int?         @unique
+  external_id Int       @unique
   movie_genre MovieGenre[]
 }
 
@@ -42,7 +42,7 @@ model Movie {
   title           String
   description     String
   adult           Boolean         @default(false)
-  external_id     Int?            @unique
+  external_id     Int           @unique
   image_path      String
   release_date    DateTime
   tmdb_rating     Float
@@ -51,15 +51,15 @@ model Movie {
   favorite_movies FavoriteMovie[]
   movie_genre     MovieGenre[]
   reviews         Review[]
-  watched_ovies   WatchedMovie[]
+  watched_movies   WatchedMovie[]
 }
 
 model MovieGenre {
   id       Int   @id @default(autoincrement())
   movie_id Int
   genre_id Int
-  genre    Genre @relation(fields: [genre_id], references: [id])
-  movie    Movie @relation(fields: [movie_id], references: [id])
+  genre    Genre @relation(fields: [genre_id], references: [external_id])
+  movie    Movie @relation(fields: [movie_id], references: [external_id])
 }
 
 model Review {
@@ -69,7 +69,7 @@ model Review {
   rating      Float
   review_text String
   review_date DateTime
-  movie       Movie    @relation(fields: [movie_id], references: [id])
+  movie       Movie    @relation(fields: [movie_id], references: [external_id])
   user        User     @relation(fields: [user_id], references: [id])
 }
 
@@ -85,7 +85,7 @@ model FavoriteMovie {
   id       Int   @id @default(autoincrement())
   user_id  Int
   movie_id Int
-  movie    Movie @relation(fields: [movie_id], references: [id])
+  movie    Movie @relation(fields: [movie_id], references: [external_id])
   user     User  @relation(fields: [user_id], references: [id])
 }
 
@@ -93,6 +93,6 @@ model WatchedMovie {
   id       Int   @id @default(autoincrement())
   user_id  Int
   movie_id Int
-  movie    Movie @relation(fields: [movie_id], references: [id])
+  movie    Movie @relation(fields: [movie_id], references: [external_id])
   user     User  @relation(fields: [user_id], references: [id])
 }

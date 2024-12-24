@@ -24,7 +24,9 @@ CREATE TABLE [dbo].[Actor] (
 CREATE TABLE [dbo].[Genre] (
     [id] INT NOT NULL IDENTITY(1,1),
     [genre_name] NVARCHAR(1000) NOT NULL,
-    CONSTRAINT [Genre_pkey] PRIMARY KEY CLUSTERED ([id])
+    [external_id] INT NOT NULL,
+    CONSTRAINT [Genre_pkey] PRIMARY KEY CLUSTERED ([id]),
+    CONSTRAINT [Genre_external_id_key] UNIQUE NONCLUSTERED ([external_id])
 );
 
 -- CreateTable
@@ -39,12 +41,23 @@ CREATE TABLE [dbo].[Director] (
 CREATE TABLE [dbo].[Movie] (
     [id] INT NOT NULL IDENTITY(1,1),
     [title] NVARCHAR(1000) NOT NULL,
-    [genre_id] INT NOT NULL,
-    [release_year] INT NOT NULL,
     [description] NVARCHAR(1000) NOT NULL,
-    [rating] FLOAT(53) NOT NULL,
-    [director_id] INT NOT NULL,
-    CONSTRAINT [Movie_pkey] PRIMARY KEY CLUSTERED ([id])
+    [adult] BIT NOT NULL CONSTRAINT [Movie_adult_df] DEFAULT 0,
+    [external_id] INT NOT NULL,
+    [image_path] NVARCHAR(1000) NOT NULL,
+    [release_date] DATETIME2 NOT NULL,
+    [tmdb_rating] FLOAT(53) NOT NULL,
+    [tmdb_vote_count] FLOAT(53) NOT NULL,
+    CONSTRAINT [Movie_pkey] PRIMARY KEY CLUSTERED ([id]),
+    CONSTRAINT [Movie_external_id_key] UNIQUE NONCLUSTERED ([external_id])
+);
+
+-- CreateTable
+CREATE TABLE [dbo].[MovieGenre] (
+    [id] INT NOT NULL IDENTITY(1,1),
+    [movie_id] INT NOT NULL,
+    [genre_id] INT NOT NULL,
+    CONSTRAINT [MovieGenre_pkey] PRIMARY KEY CLUSTERED ([id])
 );
 
 -- CreateTable
@@ -83,31 +96,31 @@ CREATE TABLE [dbo].[WatchedMovie] (
 );
 
 -- AddForeignKey
-ALTER TABLE [dbo].[Movie] ADD CONSTRAINT [Movie_genre_id_fkey] FOREIGN KEY ([genre_id]) REFERENCES [dbo].[Genre]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE [dbo].[MovieGenre] ADD CONSTRAINT [MovieGenre_genre_id_fkey] FOREIGN KEY ([genre_id]) REFERENCES [dbo].[Genre]([external_id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE [dbo].[Movie] ADD CONSTRAINT [Movie_director_id_fkey] FOREIGN KEY ([director_id]) REFERENCES [dbo].[Director]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE [dbo].[MovieGenre] ADD CONSTRAINT [MovieGenre_movie_id_fkey] FOREIGN KEY ([movie_id]) REFERENCES [dbo].[Movie]([external_id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE [dbo].[Review] ADD CONSTRAINT [Review_movie_id_fkey] FOREIGN KEY ([movie_id]) REFERENCES [dbo].[Movie]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE [dbo].[Review] ADD CONSTRAINT [Review_movie_id_fkey] FOREIGN KEY ([movie_id]) REFERENCES [dbo].[Movie]([external_id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE [dbo].[Review] ADD CONSTRAINT [Review_user_id_fkey] FOREIGN KEY ([user_id]) REFERENCES [dbo].[User]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE [dbo].[ActorMovie] ADD CONSTRAINT [ActorMovie_movie_id_fkey] FOREIGN KEY ([movie_id]) REFERENCES [dbo].[Movie]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE [dbo].[ActorMovie] ADD CONSTRAINT [ActorMovie_actor_id_fkey] FOREIGN KEY ([actor_id]) REFERENCES [dbo].[Actor]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE [dbo].[FavoriteMovie] ADD CONSTRAINT [FavoriteMovie_movie_id_fkey] FOREIGN KEY ([movie_id]) REFERENCES [dbo].[Movie]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE [dbo].[ActorMovie] ADD CONSTRAINT [ActorMovie_movie_id_fkey] FOREIGN KEY ([movie_id]) REFERENCES [dbo].[Movie]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE [dbo].[FavoriteMovie] ADD CONSTRAINT [FavoriteMovie_movie_id_fkey] FOREIGN KEY ([movie_id]) REFERENCES [dbo].[Movie]([external_id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE [dbo].[FavoriteMovie] ADD CONSTRAINT [FavoriteMovie_user_id_fkey] FOREIGN KEY ([user_id]) REFERENCES [dbo].[User]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE [dbo].[WatchedMovie] ADD CONSTRAINT [WatchedMovie_movie_id_fkey] FOREIGN KEY ([movie_id]) REFERENCES [dbo].[Movie]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+ALTER TABLE [dbo].[WatchedMovie] ADD CONSTRAINT [WatchedMovie_movie_id_fkey] FOREIGN KEY ([movie_id]) REFERENCES [dbo].[Movie]([external_id]) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE [dbo].[WatchedMovie] ADD CONSTRAINT [WatchedMovie_user_id_fkey] FOREIGN KEY ([user_id]) REFERENCES [dbo].[User]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
