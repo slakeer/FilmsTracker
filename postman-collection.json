@@ -1,0 +1,212 @@
+{
+  "info": {
+    "name": "FilmsTracker API",
+    "description": "Postman collection for testing Movies API endpoints",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testuser\",\n  \"email\": \"testuser@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login User",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"testuser@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Movie",
+      "item": [
+        {
+          "name": "Get Movies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/movies",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "movies"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Genre",
+      "item": [
+        {
+          "name": "Get Genres",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/genres",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "genres"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Favorite Movie",
+      "item": [
+        {
+          "name": "Get Favorite Movies by User ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/favorite-movies/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "favorite-movies", "1"],
+              "variable": [
+                { "key": "userId", "value": "1" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Add Favorite Movie",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 1,\n  \"movieId\": 101\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/favorite-movies",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "favorite-movies"]
+            }
+          }
+        },
+        {
+          "name": "Delete Favorite Movie by User ID and Movie ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/favorite-movies/1/101",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "favorite-movies", "1", "101"],
+              "variable": [
+                { "key": "userId", "value": "1" },
+                { "key": "movieId", "value": "101" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Watched Movie",
+      "item": [
+        {
+          "name": "Get Watched Movies by User ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/watched-movies/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "watched-movies", "1"],
+              "variable": [
+                { "key": "userId", "value": "1" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Add Watched Movie",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 1,\n  \"movieId\": 201\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/watched-movies",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "watched-movies"]
+            }
+          }
+        },
+        {
+          "name": "Delete Watched Movie by User ID and Movie ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/watched-movies/1/201",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "watched-movies", "1", "201"],
+              "variable": [
+                { "key": "userId", "value": "1" },
+                { "key": "movieId", "value": "201" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
