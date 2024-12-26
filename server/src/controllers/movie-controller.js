@@ -1,7 +1,14 @@
 import prisma from '../../prisma/prisma_client.js';
 export const getMovies = async (req, res) => {
+  const { startFrom, range } = req.params;
   try {
     const movies = await prisma.movie.findMany({
+      where: {
+        id: {
+          gte: parseInt(startFrom)
+        }
+      },
+      take: parseInt(range),
       include: {
         movie_genre: {
           include: {

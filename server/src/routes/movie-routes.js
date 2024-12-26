@@ -5,14 +5,33 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/movies:
+ * /api/movies/{startFrom}/{range}:
  *   get:
- *     description: Отримати список всіх фільмів
+ *     description: Отримати список фільмів з можливістю пагінації
+ *     parameters:
+ *       - name: startFrom
+ *         in: path
+ *         description: ID фільму, з якого почати вибірку
+ *         required: true
+ *         type: integer
+ *       - name: range
+ *         in: path
+ *         description: Кількість фільмів, які потрібно повернути
+ *         required: true
+ *         type: integer
  *     responses:
  *       200:
  *         description: Список фільмів
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/definitions/Movie'
+ *       500:
+ *         description: Помилка сервера
  */
-router.get('/', getMovies);
+router.get('/:startFrom/:range', getMovies);
 
 /**
  * @swagger
