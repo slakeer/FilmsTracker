@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import './SignUp.css';
+import { useNavigate } from 'react-router-dom';
+import { registerUser } from '../api/auth';
+import '../styles/SignUp.css';
 
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
+  const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    console.log('Registration Data:', data);
-    alert(`Welcome, ${data.email}`);
+  const onSubmit = async (data) => {
+    try {
+      await registerUser(data);
+      setShowModal(true);
+      setTimeout(() => {
+        navigate('/LoginPage');
+      }, 3000);
+    } catch (error) {
+      alert(error.message || 'An error occurred during registration');
+    }
   };
 
   return (
@@ -16,6 +27,23 @@ const SignUp = () => {
         <h1 className="signup-title">Registration</h1>
         <p className="signup-subtitle">Create an account to access</p>
         <form onSubmit={handleSubmit(onSubmit)} className="signup-form">
+          <div className="form-group">
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              placeholder="Enter your username"
+              {...register('username', {
+                required: 'Username is required',
+                minLength: {
+                  value: 3,
+                  message: 'Username must be at least 3 characters',
+                },
+              })}
+            />
+            {errors.username && <p className="error">{errors.username.message}</p>}
+          </div>
+
           <div className="form-group">
             <label htmlFor="email">Email:</label>
             <input
@@ -39,7 +67,6 @@ const SignUp = () => {
               type="password"
               id="password"
               placeholder="Enter your password"
-
               {...register('password', {
                 required: 'Password is required',
                 minLength: {
@@ -57,7 +84,6 @@ const SignUp = () => {
               type="password"
               id="confirmPassword"
               placeholder="Confirm password"
-
               {...register('confirmPassword', {
                 required: 'Please confirm your password',
                 validate: (value) =>
@@ -76,6 +102,16 @@ const SignUp = () => {
         <p className="signin-text">
           Already have an account? <a href="/LoginPage">Log In</a>
         </p>
+
+        {showModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>Congratulations!</h2>
+              <p>Your account has been successfully created.</p>
+              <p>You will be redirected to the Login Page shortly...</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

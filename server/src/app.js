@@ -1,6 +1,6 @@
 import express from 'express';
 import passport from "passport";
-// import bodyParser from 'body-parser';
+import cors from 'cors';
 import movieRoutes from './routes/movie-routes.js';
 import genreRoutes from './routes/genre-routes.js';
 import watchedMoviesRoutes from './routes/watched-movie-routes.js';
@@ -11,6 +11,13 @@ import authRoutes from './routes/auth-routes.js';
 import { swaggerDocs, swaggerUi } from './swagger-options.js';
 
 const app = express();
+
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
@@ -22,4 +29,5 @@ app.use('/api/watched-movies', watchedMoviesRoutes);
 app.use('/api/favorite-movies', favoriteMoviesRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/auth', authRoutes);
+
 export default app;

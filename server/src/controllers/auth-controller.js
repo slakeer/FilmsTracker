@@ -2,7 +2,7 @@ import prisma from '../../prisma/prisma_client.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-dotenv.config("../.env");
+dotenv.config("./");
 
 const register = async (req, res) => {
     const { username, email, password } = req.body;
@@ -35,7 +35,9 @@ const login = async (req, res) => {
         return res.status(400).json({message: 'Email and password are required'});
     }
 
-    const user = await prisma.user.findFirst((u) => u.email === email);
+    const user = await prisma.user.findFirst({
+        where: { email }
+    });
     if (!user) {
         return res.status(400).json({message: 'Invalid login or password'});
     }
