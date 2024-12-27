@@ -27,7 +27,22 @@ export const getReviewsByMovieId = async (req, res) => {
   const { movieId } = req.params;
   try {
     const reviews = await prisma.review.findMany({
-      where: { movie_id: parseInt(movieId) }
+      where: {
+        movie_id: parseInt(movieId)
+      },
+      select: {
+        id: true,
+        movie_id: true,
+        rating: true,
+        review_text: true,
+        review_date: true,
+        user: {
+          select: {
+            id: true,
+            name: true
+          }
+        }
+      },
     });
     res.status(200).json(reviews);
   } catch (error) {
