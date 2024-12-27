@@ -16,3 +16,24 @@
   gap: 10px;
   justify-content: center;
 }
+
+.filter-container {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#genre-select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-size: 1rem;
+  color: #333;
+}
+
+#genre-select:focus {
+  outline: none;
+  border-color: #e50914;
+}
