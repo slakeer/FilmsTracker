@@ -1,18 +1,30 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { fetchGenres } from '../api/movie';
 import '../styles/AppHeader.css';
 
 const AppHeader = ({ onSearch, onGenreSelect }) => {
+  const { isLoggedIn, user, logout } = useContext(AuthContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState('All');
+  const [genres, setGenres] = useState([]);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
-  const { isLoggedIn, user, logout } = useContext(AuthContext);
+  useEffect(() => {
+    const getGenres = async () => {
+      try {
+        const genreList = await fetchGenres();
+        setGenres(genreList);
+      } catch (error) {
+        console.error('Failed to fetch genres:', error);
+      }
+    };
 
-  const genres = ['All', 'Action', 'Comedy', 'Drama', 'Horror', 'Romance'];
+    getGenres();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -89,8 +101,16 @@ const AppHeader = ({ onSearch, onGenreSelect }) => {
                   </div>
 
                   <div className="dropdown-content">
-                    <button className="dropdown-item">My Watchlist</button>
-                    <button className="dropdown-item">Favorite films</button>
+                    <button className="dropdown-item">
+                      <Link to={`/favorite-films/${user.id}`}>
+                        Favorite films
+                      </Link>
+                    </button>
+                    <button className="dropdown-item">
+                      <Link to={`/watched-films/${user.id}`}>
+                        Watched films
+                      </Link>
+                    </button>
                   </div>
 
                   <div className="dropdown-footer">

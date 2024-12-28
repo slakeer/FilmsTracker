@@ -2,8 +2,7 @@ import React from 'react';
 import MovieCard from './MovieCard';
 import '../styles/TrendingSection.css';
 
-const TrendingSection = ({ movies }) => {
-
+const TrendingSection = ({ movies, onLoadMore, loading, hasMore }) => {
   return (
     <section className="trending-section">
       <h2>Trending Movies</h2>
@@ -20,6 +19,15 @@ const TrendingSection = ({ movies }) => {
           );
         })}
       </div>
+      {hasMore && ( 
+        <button
+          className="load-more-btn"
+          onClick={onLoadMore}
+          disabled={loading}
+        >
+          {loading ? 'Loading...' : 'Find More'}
+        </button>
+      )}
     </section>
   );
 };

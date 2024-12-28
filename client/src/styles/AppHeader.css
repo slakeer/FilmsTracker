@@ -183,7 +183,13 @@
   color: #333;
   font-size: 0.9rem;
   cursor: pointer;
+  text-decoration: none;
   transition: background-color 0.2s ease;
+}
+
+.dropdown-item a {
+  text-decoration: none;
+  color: #333;
 }
 
 .dropdown-item:hover {
@@ -268,8 +274,9 @@
   width: 100%;
   padding: 1rem 0 0.5rem 0;
   overflow-x: auto;
-  scrollbar-width: none; 
+  white-space: nowrap;
   -ms-overflow-style: none;
+  scrollbar-width: none; 
 }
 
 .genre-filter::-webkit-scrollbar {
@@ -277,12 +284,12 @@
 }
 
 .genre-list {
-  justify-content: center;
   display: flex;
   gap: 1rem;
   padding: 0 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  white-space: nowrap; 
 }
 
 .genre-button {
@@ -316,9 +323,9 @@
 
 @media (max-width: 768px) {
   .genre-list {
-    padding: 0 1rem;
+    padding: 0 1rem; 
   }
-  
+
   .genre-button {
     padding: 0.4rem 1rem;
     font-size: 0.85rem;

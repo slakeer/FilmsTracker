@@ -1,8 +1,8 @@
 import { API_URL } from './apiConfig';
 
-export const fetchMovies = async () => {
+export const fetchMovies = async (start, limit) => {
     try {
-        const response = await fetch(`${API_URL}/movies`, {
+        const response = await fetch(`${API_URL}/movies/${start}/${limit}`, {
             headers: { Accept: '*/*' },
         });
         if (!response.ok) {
@@ -24,5 +24,19 @@ export const fetchMovieDetails = async (movieId) => {
         return await response.json();
     } catch (error) {
         throw new Error(error.message || 'Something went wrong');
+    }
+};
+
+export const fetchGenres = async () => {
+    try {
+        const response = await fetch(`${API_URL}/genres`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch genres');
+        }
+        const data = await response.json();
+        return ['All', ...data.map(genre => genre.genre_name)];
+    } catch (error) {
+        console.error('Error while fetching genres:', error);
+        throw error;
     }
 };
