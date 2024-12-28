@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieDetails } from '../api/movie';
+import { addMovieToWatched } from '../api/watchedFilms';
+import { AuthContext } from '../context/AuthContext';
+import { addToFavorites } from '../api/favoriteFIlms';
 import MovieReviews from './MovieReviews';
 import '../styles/MovieDetails.css';
 
 const MovieDetails = () => {
+  const { user } = useContext(AuthContext);
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isWatched, setIsWatched] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false); 
 
   useEffect(() => {
     const loadMovieDetails = async () => {
@@ -24,6 +30,24 @@ const MovieDetails = () => {
 
     loadMovieDetails();
   }, [movieId]);
+
+  const addToWatched = async () => {
+    try {
+      await addMovieToWatched(user.id, movieId);
+      setIsWatched(true);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const addToFavorite = async () => {
+    try {
+      await addToFavorites(user.id, movieId);
+      setIsFavorite(true); 
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -79,17 +103,25 @@ const MovieDetails = () => {
             </div>
             
             <div className="action-buttons">
-              <button className="btn-watch">
+              <button 
+                className={`btn-watch ${isWatched ? 'watched' : ''}`}
+                onClick={addToWatched}
+                disabled={isWatched} 
+              >
                 <svg viewBox="0 0 24 24" className="play-icon">
                   <path d="M8 5v14l11-7z" />
                 </svg>
-                Watch later
+                {isWatched ? 'Added to Watched' : 'Add to Watched'}
               </button>
-              <button className="btn-list">
+              <button 
+                className={`btn-list ${isFavorite ? 'added' : ''}`}
+                onClick={addToFavorite} 
+                disabled={isFavorite}
+              >
                 <svg viewBox="0 0 24 24" className="plus-icon">
                   <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z" />
                 </svg>
-                Add to List
+                {isFavorite ? 'Added to Favorite' : 'Add to Favorite'}
               </button>
             </div>
           </div>

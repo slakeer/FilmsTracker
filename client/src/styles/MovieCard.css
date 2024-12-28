@@ -76,10 +76,10 @@
     border-radius: 6px;
 }
 
-.star-icon {
+.starIcon {
     width: 16px;
     height: 16px;
-    fill: #FFD700;
+    fill: #FFD700 ;
 }
 
 .rating-value {

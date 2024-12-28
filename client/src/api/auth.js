@@ -2,7 +2,7 @@ import { API_URL } from './apiConfig';
 
 export const loginUser = async (email, password) => {
   try {
-    const response = await fetch(`${API_URL}/auth/login`, {
+    const response = await fetch(`${API_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -11,28 +11,34 @@ export const loginUser = async (email, password) => {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Login failed');
+      throw new Error('Invalid credentials');
     }
+
     const result = await response.json();
-    localStorage.setItem('authToken', result.token);
+    localStorage.setItem('token', result.token);
     return result;
   } catch (error) {
     throw new Error(error.message || 'Something went wrong');
   }
 };
 
-export const registerUser = async (userData) => {
-    const response = await fetch(`${API_URL}/auth/register`, {
+export const registerUser = async (email, password) => {
+  try {
+    const response = await fetch(`${API_URL}/register`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
     });
-  
+
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Registration failed');
+      throw new Error('Registration failed');
     }
-  
-    return response.json();
-  };
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    throw new Error(error.message || 'Something went wrong');
+  }
+};

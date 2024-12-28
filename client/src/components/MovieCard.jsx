@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import { addToFavorites, removeFromFavorites } from '../api/favoriteFIlms';
 import '../styles/MovieCard.css';
 
 const MovieCard = ({ movie, movieIdFromGenre }) => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { user } = useContext(AuthContext);
   const genres = movie.movie_genre
     .map(mg => mg.genre.genre_name)
     .join(' • ');
@@ -10,21 +14,34 @@ const MovieCard = ({ movie, movieIdFromGenre }) => {
   const releaseDate = new Date(movie.release_date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
-    day: 'numeric'
+    day: 'numeric',
   });
 
   const rating = Number(movie.tmdb_rating).toFixed(1);
+
+  const handleFavoriteClick = async () => {
+    try {
+      if (isFavorite) {
+        await removeFromFavorites(user.id, movieIdFromGenre);
+        setIsFavorite(false);
+      } else {
+        await addToFavorites(user.id, movieIdFromGenre);
+        setIsFavorite(true);
+      }
+    } catch (error) {
+      console.error('Error handling favorite:', error);
+    }
+  };
 
   return (
     <div className="movie-card">
       <div className="movie-poster-container">
         <img src={movie.image_path} alt={movie.title} className="movie-poster" />
-
         <div className="movie-overlay">
           <div className="overlay-content">
             <div className="movie-quick-info">
               <div className="rating-badge">
-                <svg className="star-icon" viewBox="0 0 24 24">
+                <svg className="starIcon" viewBox="0 0 24 24">
                   <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
                 </svg>
                 <span className="rating-value">{rating}</span>
@@ -47,11 +64,11 @@ const MovieCard = ({ movie, movieIdFromGenre }) => {
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </Link>
-              <button className="btn-watchlist">
+              <button className="btn-watchlist" onClick={handleFavoriteClick}>
                 <svg className="plus-icon" viewBox="0 0 24 24">
                   <path d="M12 5v14M5 12h14" />
                 </svg>
-                <span>Watchlist</span>
+                <span>{isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}</span>
               </button>
             </div>
           </div>
@@ -62,7 +79,7 @@ const MovieCard = ({ movie, movieIdFromGenre }) => {
         <h3 className="movie-title">{movie.title}</h3>
         <div className="info-bottom">
           <div className="rating-pill">
-            <svg className="star-icon" viewBox="0 0 24 24">
+            <svg className="starIcon" viewBox="0 0 24 24">
               <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
             </svg>
             <span>{rating}</span>
