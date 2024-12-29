@@ -22,7 +22,13 @@ const App = () => {
   const loadInitialMovies = async () => {
     setLoading(true);
     const fetchedMovies = await fetchMovies(1, 10000); 
-    setAllMovies(fetchedMovies);
+    setAllMovies(fetchedMovies.map(movie => ({
+      ...movie,
+      movie_genre: movie.movie_genre.map(genre => ({
+        ...genre,
+        movie_id: String(genre.movie_id)
+      }))
+    })));
     setRangeStart(MOVIE_BATCH_SIZE);
     setLoading(false);
   };
@@ -74,4 +80,3 @@ const App = () => {
 };
 
 export default App;
-

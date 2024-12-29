@@ -9,7 +9,7 @@ const TrendingSection = ({ movies, onLoadMore, loading, hasMore }) => {
       <h2>Trending Movies</h2>
       <div className="movies-container">
         {movies.map((movie) => {
-          const movieIdFromGenre = movie.movie_genre[0]?.movie_id;
+          const movieIdFromGenre = String(movie.movie_genre[0]?.movie_id);
 
           return (
             <MovieCard

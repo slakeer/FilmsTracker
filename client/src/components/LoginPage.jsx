@@ -13,6 +13,7 @@ const LoginPage = () => {
 
   const onSubmit = async (data) => {
     try {
+      console.log(data)
       const result = await loginUser(data.email, data.password);
       const { token } = result;
       login(token);
