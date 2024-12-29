@@ -2,6 +2,7 @@ import globals from 'globals';
 import pluginJs from '@eslint/js';
 import prettier from 'eslint-config-prettier';
 import pluginPrettier from 'eslint-plugin-prettier';
+import pluginJest from 'eslint-plugin-jest';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -17,7 +18,8 @@ export default [
     languageOptions: {
       globals: {
         ...globals.browser,
-        ...globals.node // Додаємо підтримку для Node.js
+        ...globals.node,
+        ...globals.jest // Додаємо підтримку для Node.js
       }
     }
   },
@@ -25,7 +27,8 @@ export default [
   prettier, // Очищає конфлікти між ESLint і Prettier
   {
     plugins: {
-      prettier: pluginPrettier
+      prettier: pluginPrettier,
+      jest: pluginJest
     }
 
     // rules: {
