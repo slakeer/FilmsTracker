@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'; 
 import MovieCard from './MovieCard';
 import '../styles/TrendingSection.css';
 
@@ -19,7 +20,7 @@ const TrendingSection = ({ movies, onLoadMore, loading, hasMore }) => {
           );
         })}
       </div>
-      {hasMore && ( 
+      {hasMore && (
         <button
           className="load-more-btn"
           onClick={onLoadMore}
@@ -30,6 +31,21 @@ const TrendingSection = ({ movies, onLoadMore, loading, hasMore }) => {
       )}
     </section>
   );
+};
+
+TrendingSection.propTypes = {
+  movies: PropTypes.arrayOf(
+    PropTypes.shape({
+      movie_genre: PropTypes.arrayOf(
+        PropTypes.shape({
+          movie_id: PropTypes.string.isRequired,
+        })
+      ),
+    })
+  ).isRequired,
+  onLoadMore: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  hasMore: PropTypes.bool.isRequired,
 };
 
 export default TrendingSection;

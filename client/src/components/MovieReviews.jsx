@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { AuthContext } from '../context/AuthContext';
 import { fetchMovieReviews, postMovieReview } from '../api/reviews';
 import '../styles/MovieReviews.css';
@@ -119,6 +120,10 @@ const MovieReviews = ({ movieId }) => {
       </div>
     </div>
   );
+};
+
+MovieReviews.propTypes = {
+  movieId: PropTypes.string.isRequired,
 };
 
 export default MovieReviews;

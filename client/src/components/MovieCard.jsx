@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { addToFavorites, removeFromFavorites } from '../api/favoriteFIlms';
@@ -8,7 +9,7 @@ const MovieCard = ({ movie, movieIdFromGenre }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const { user } = useContext(AuthContext);
   const genres = movie.movie_genre
-    .map(mg => mg.genre.genre_name)
+    .map((mg) => mg.genre.genre_name)
     .join(' • ');
 
   const releaseDate = new Date(movie.release_date).toLocaleDateString('en-US', {
@@ -89,6 +90,24 @@ const MovieCard = ({ movie, movieIdFromGenre }) => {
       </div>
     </div>
   );
+};
+
+MovieCard.propTypes = {
+  movie: PropTypes.shape({
+    movie_genre: PropTypes.arrayOf(
+      PropTypes.shape({
+        genre: PropTypes.shape({
+          genre_name: PropTypes.string.isRequired,
+        }).isRequired,
+      })
+    ).isRequired,
+    release_date: PropTypes.string.isRequired,
+    tmdb_rating: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    image_path: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+  }).isRequired,
+  movieIdFromGenre: PropTypes.string.isRequired,
 };
 
 export default MovieCard;

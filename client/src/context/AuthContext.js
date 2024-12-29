@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
+import PropTypes from 'prop-types';
+import jwtDecode from 'jwt-decode';
 
 export const AuthContext = createContext();
 
@@ -47,4 +48,8 @@ export const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };

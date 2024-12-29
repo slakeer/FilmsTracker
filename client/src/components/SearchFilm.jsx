@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MovieCard from './MovieCard';
 
 const SearchResults = ({ results }) => (
@@ -11,5 +12,14 @@ const SearchResults = ({ results }) => (
     </div>
   </section>
 );
+
+SearchResults.propTypes = {
+  results: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired, 
+    })
+  ).isRequired,
+};
 
 export default SearchResults;

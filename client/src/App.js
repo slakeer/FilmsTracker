@@ -11,8 +11,7 @@ import WatchedFilms from './components/WatchedFilms';
 import './App.css';
 
 const App = () => {
-  const [allMovies, setAllMovies] = useState([]); 
-  const [movies, setMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,18 +23,16 @@ const App = () => {
     setLoading(true);
     const fetchedMovies = await fetchMovies(1, 10000); 
     setAllMovies(fetchedMovies);
-    setMovies(fetchedMovies.slice(0, MOVIE_BATCH_SIZE)); 
     setRangeStart(MOVIE_BATCH_SIZE);
     setLoading(false);
   };
 
   const loadMoreMovies = () => {
-    const nextBatch = allMovies.slice(rangeStart, rangeStart + MOVIE_BATCH_SIZE);
-    setMovies((prev) => [...prev, ...nextBatch]); 
-    setRangeStart(rangeStart + MOVIE_BATCH_SIZE);
     if (rangeStart + MOVIE_BATCH_SIZE >= allMovies.length) {
       setHasMore(false);
+      return;
     }
+    setRangeStart(rangeStart + MOVIE_BATCH_SIZE);
   };
 
   useEffect(() => {
@@ -77,3 +74,4 @@ const App = () => {
 };
 
 export default App;
+

@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { fetchGenres } from '../api/movie';
@@ -149,6 +150,11 @@ const AppHeader = ({ onSearch, onGenreSelect }) => {
       </div>
     </header>
   );
+};
+
+AppHeader.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+  onGenreSelect: PropTypes.func.isRequired,
 };
 
 export default AppHeader;
