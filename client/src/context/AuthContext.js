@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 export const AuthContext = createContext();
 
@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
       try {
         const decoded = jwtDecode(token);
         setUser({
-          id: decoded.id,
+          id: decoded.id
         });
         setIsLoggedIn(true);
       } catch (error) {
@@ -24,12 +24,12 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = (token) => {
+  const login = token => {
     try {
       localStorage.setItem('authToken', token);
       const decoded = jwtDecode(token);
       setUser({
-        id: decoded.id,
+        id: decoded.id
       });
       setIsLoggedIn(true);
     } catch (error) {
@@ -51,5 +51,5 @@ export const AuthProvider = ({ children }) => {
 };
 
 AuthProvider.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };

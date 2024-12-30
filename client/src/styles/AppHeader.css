@@ -276,7 +276,7 @@
   overflow-x: auto;
   white-space: nowrap;
   -ms-overflow-style: none;
-  scrollbar-width: none; 
+  scrollbar-width: none;
 }
 
 .genre-filter::-webkit-scrollbar {
@@ -289,7 +289,7 @@
   padding: 0 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  white-space: nowrap; 
+  white-space: nowrap;
 }
 
 .genre-button {
@@ -323,7 +323,7 @@
 
 @media (max-width: 768px) {
   .genre-list {
-    padding: 0 1rem; 
+    padding: 0 1rem;
   }
 
   .genre-button {

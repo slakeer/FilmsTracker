@@ -28,13 +28,17 @@ describe('auth functions', () => {
     it('should throw an error if login fails', async () => {
       fetchMock.mockRejectOnce(new Error('Invalid credentials'));
 
-      await expect(loginUser('test@example.com', 'wrongPassword')).rejects.toThrow('Invalid credentials');
+      await expect(
+        loginUser('test@example.com', 'wrongPassword')
+      ).rejects.toThrow('Invalid credentials');
     });
 
     it('should handle network errors gracefully', async () => {
       fetchMock.mockRejectOnce(new Error('Network request failed'));
 
-      await expect(loginUser('test@example.com', 'password')).rejects.toThrow('Network request failed');
+      await expect(loginUser('test@example.com', 'password')).rejects.toThrow(
+        'Network request failed'
+      );
     });
   });
 
@@ -53,13 +57,17 @@ describe('auth functions', () => {
     it('should throw an error if registration fails', async () => {
       fetchMock.mockRejectOnce(new Error('Registration failed'));
 
-      await expect(registerUser('test@example.com', 'password')).rejects.toThrow('Registration failed');
+      await expect(
+        registerUser('test@example.com', 'password')
+      ).rejects.toThrow('Registration failed');
     });
 
     it('should handle network errors gracefully', async () => {
       fetchMock.mockRejectOnce(new Error('Network request failed'));
 
-      await expect(registerUser('test@example.com', 'password')).rejects.toThrow('Network request failed');
+      await expect(
+        registerUser('test@example.com', 'password')
+      ).rejects.toThrow('Network request failed');
     });
   });
 });

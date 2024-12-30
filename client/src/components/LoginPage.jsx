@@ -6,14 +6,18 @@ import { loginUser } from '../api/auth';
 import '../styles/LoginPage.css';
 
 const LoginPage = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
   const [errorMessage, setErrorMessage] = useState(null);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     try {
-      console.log(data)
+      console.log(data);
       const result = await loginUser(data.email, data.password);
       const { token } = result;
       login(token);
@@ -42,8 +46,8 @@ const LoginPage = () => {
                 required: 'Email is required',
                 pattern: {
                   value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
-                  message: 'Invalid email format',
-                },
+                  message: 'Invalid email format'
+                }
               })}
             />
             {errors.email && <p className="error">{errors.email.message}</p>}
@@ -59,11 +63,13 @@ const LoginPage = () => {
                 required: 'Password is required',
                 minLength: {
                   value: 6,
-                  message: 'Password must be at least 6 characters',
-                },
+                  message: 'Password must be at least 6 characters'
+                }
               })}
             />
-            {errors.password && <p className="error">{errors.password.message}</p>}
+            {errors.password && (
+              <p className="error">{errors.password.message}</p>
+            )}
           </div>
 
           <button type="submit" className="login-button">

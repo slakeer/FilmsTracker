@@ -13,7 +13,7 @@ const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isWatched, setIsWatched] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false); 
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     const loadMovieDetails = async () => {
@@ -43,7 +43,7 @@ const MovieDetails = () => {
   const addToFavorite = async () => {
     try {
       await addToFavorites(user.id, movieId);
-      setIsFavorite(true); 
+      setIsFavorite(true);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -60,18 +60,25 @@ const MovieDetails = () => {
   if (!movieDetails) return null;
 
   const genres = movieDetails.movie_genre
-    .map((genre) => genre.genre.genre_name)
+    .map(genre => genre.genre.genre_name)
     .join(' • ');
 
-  const adjustedRating = (Math.max(0, movieDetails.tmdb_rating - 0.1)).toFixed(1);
+  const adjustedRating = Math.max(0, movieDetails.tmdb_rating - 0.1).toFixed(1);
 
   return (
     <div className="movie-page">
-      <div className="hero-section" style={{ backgroundImage: `url(${movieDetails.image_path})` }}>
+      <div
+        className="hero-section"
+        style={{ backgroundImage: `url(${movieDetails.image_path})` }}
+      >
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <div className="poster-container">
-            <img src={movieDetails.image_path} alt={movieDetails.title} className="movie-poster" />
+            <img
+              src={movieDetails.image_path}
+              alt={movieDetails.title}
+              className="movie-poster"
+            />
             <div className="rating-box">
               <div className="rating-circle">
                 <div className="rating-value">
@@ -87,35 +94,38 @@ const MovieDetails = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="movie-info">
             <h1 className="movie-title">{movieDetails.title}</h1>
             <div className="movie-meta">
               <span className="release-date">
-                {new Date(movieDetails.release_date).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric'
-                })}
+                {new Date(movieDetails.release_date).toLocaleDateString(
+                  'en-US',
+                  {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  }
+                )}
               </span>
               <span className="separator">•</span>
               <span className="genres">{genres}</span>
             </div>
-            
+
             <div className="action-buttons">
-              <button 
+              <button
                 className={`btn-watch ${isWatched ? 'watched' : ''}`}
                 onClick={addToWatched}
-                disabled={isWatched} 
+                disabled={isWatched}
               >
                 <svg viewBox="0 0 24 24" className="play-icon">
                   <path d="M8 5v14l11-7z" />
                 </svg>
                 {isWatched ? 'Added to Watched' : 'Add to Watched'}
               </button>
-              <button 
+              <button
                 className={`btn-list ${isFavorite ? 'added' : ''}`}
-                onClick={addToFavorite} 
+                onClick={addToFavorite}
                 disabled={isFavorite}
               >
                 <svg viewBox="0 0 24 24" className="plus-icon">

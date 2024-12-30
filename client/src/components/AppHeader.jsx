@@ -28,7 +28,7 @@ const AppHeader = ({ onSearch, onGenreSelect }) => {
   }, []);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = event => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setShowDropdown(false);
       }
@@ -38,12 +38,12 @@ const AppHeader = ({ onSearch, onGenreSelect }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleSearchInputChange = (e) => {
+  const handleSearchInputChange = e => {
     setSearchQuery(e.target.value);
     onSearch(e.target.value);
   };
 
-  const handleGenreChange = (genre) => {
+  const handleGenreChange = genre => {
     setSelectedGenre(genre);
     onGenreSelect(genre === 'All' ? null : genre);
   };
@@ -137,7 +137,7 @@ const AppHeader = ({ onSearch, onGenreSelect }) => {
 
       <div className="genre-filter">
         <div className="genre-list">
-          {genres.map((genre) => (
+          {genres.map(genre => (
             <button
               key={genre}
               className={`genre-button ${selectedGenre === genre ? 'genre-button-active' : ''}`}
@@ -154,7 +154,7 @@ const AppHeader = ({ onSearch, onGenreSelect }) => {
 
 AppHeader.propTypes = {
   onSearch: PropTypes.func.isRequired,
-  onGenreSelect: PropTypes.func.isRequired,
+  onGenreSelect: PropTypes.func.isRequired
 };
 
 export default AppHeader;

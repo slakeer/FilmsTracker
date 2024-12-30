@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types'; 
+import PropTypes from 'prop-types';
 import MovieCard from './MovieCard';
 import '../styles/TrendingSection.css';
 
@@ -8,7 +8,7 @@ const TrendingSection = ({ movies, onLoadMore, loading, hasMore }) => {
     <section className="trending-section">
       <h2>Trending Movies</h2>
       <div className="movies-container">
-        {movies.map((movie) => {
+        {movies.map(movie => {
           const movieIdFromGenre = String(movie.movie_genre[0]?.movie_id);
 
           return (
@@ -38,14 +38,14 @@ TrendingSection.propTypes = {
     PropTypes.shape({
       movie_genre: PropTypes.arrayOf(
         PropTypes.shape({
-          movie_id: PropTypes.string.isRequired,
+          movie_id: PropTypes.string.isRequired
         })
-      ),
+      )
     })
   ).isRequired,
   onLoadMore: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  hasMore: PropTypes.bool.isRequired,
+  hasMore: PropTypes.bool.isRequired
 };
 
 export default TrendingSection;

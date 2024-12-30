@@ -8,14 +8,12 @@ import '../styles/MovieCard.css';
 const MovieCard = ({ movie, movieIdFromGenre }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const { user } = useContext(AuthContext);
-  const genres = movie.movie_genre
-    .map((mg) => mg.genre.genre_name)
-    .join(' • ');
+  const genres = movie.movie_genre.map(mg => mg.genre.genre_name).join(' • ');
 
   const releaseDate = new Date(movie.release_date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
-    day: 'numeric',
+    day: 'numeric'
   });
 
   const rating = Number(movie.tmdb_rating).toFixed(1);
@@ -37,7 +35,11 @@ const MovieCard = ({ movie, movieIdFromGenre }) => {
   return (
     <div className="movie-card">
       <div className="movie-poster-container">
-        <img src={movie.image_path} alt={movie.title} className="movie-poster" />
+        <img
+          src={movie.image_path}
+          alt={movie.title}
+          className="movie-poster"
+        />
         <div className="movie-overlay">
           <div className="overlay-content">
             <div className="movie-quick-info">
@@ -47,7 +49,9 @@ const MovieCard = ({ movie, movieIdFromGenre }) => {
                 </svg>
                 <span className="rating-value">{rating}</span>
               </div>
-              <span className="release-year">{new Date(movie.release_date).getFullYear()}</span>
+              <span className="release-year">
+                {new Date(movie.release_date).getFullYear()}
+              </span>
             </div>
 
             <h3 className="overlay-title">{movie.title}</h3>
@@ -69,7 +73,9 @@ const MovieCard = ({ movie, movieIdFromGenre }) => {
                 <svg className="plus-icon" viewBox="0 0 24 24">
                   <path d="M12 5v14M5 12h14" />
                 </svg>
-                <span>{isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}</span>
+                <span>
+                  {isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}
+                </span>
               </button>
             </div>
           </div>
@@ -85,7 +91,9 @@ const MovieCard = ({ movie, movieIdFromGenre }) => {
             </svg>
             <span>{rating}</span>
           </div>
-          <span className="movie-year">{new Date(movie.release_date).getFullYear()}</span>
+          <span className="movie-year">
+            {new Date(movie.release_date).getFullYear()}
+          </span>
         </div>
       </div>
     </div>
@@ -97,17 +105,18 @@ MovieCard.propTypes = {
     movie_genre: PropTypes.arrayOf(
       PropTypes.shape({
         genre: PropTypes.shape({
-          genre_name: PropTypes.string.isRequired,
-        }).isRequired,
+          genre_name: PropTypes.string.isRequired
+        }).isRequired
       })
     ).isRequired,
     release_date: PropTypes.string.isRequired,
-    tmdb_rating: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    tmdb_rating: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      .isRequired,
     image_path: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    description: PropTypes.string,
+    description: PropTypes.string
   }).isRequired,
-  movieIdFromGenre: PropTypes.string.isRequired,
+  movieIdFromGenre: PropTypes.string.isRequired
 };
 
 export default MovieCard;

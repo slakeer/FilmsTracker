@@ -12,7 +12,7 @@ const FavoriteFilms = () => {
 
   useEffect(() => {
     fetchFavoriteMovies();
-  }, [userId, fetchFavoriteMovies]);
+  }, [userId]);
 
   const fetchFavoriteMovies = async () => {
     try {

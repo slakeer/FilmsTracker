@@ -6,7 +6,7 @@ const SearchResults = ({ results }) => (
   <section>
     <h2>Search Results</h2>
     <div className="movie-list">
-      {results.map((movie) => (
+      {results.map(movie => (
         <MovieCard key={movie.id} {...movie} />
       ))}
     </div>
@@ -17,9 +17,9 @@ SearchResults.propTypes = {
   results: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired, 
+      title: PropTypes.string.isRequired
     })
-  ).isRequired,
+  ).isRequired
 };
 
 export default SearchResults;

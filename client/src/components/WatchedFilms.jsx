@@ -11,7 +11,7 @@ const WatchedFilms = () => {
 
   useEffect(() => {
     loadWatchedMovies();
-  }, [userId, loadWatchedMovies]);
+  }, [userId]);
 
   const loadWatchedMovies = async () => {
     setLoading(true);

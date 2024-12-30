@@ -16,19 +16,21 @@ const App = () => {
   const [selectedGenre, setSelectedGenre] = useState('');
   const [loading, setLoading] = useState(false);
   const [rangeStart, setRangeStart] = useState(0);
-  const [hasMore, setHasMore] = useState(true); 
+  const [hasMore, setHasMore] = useState(true);
   const MOVIE_BATCH_SIZE = 30;
 
   const loadInitialMovies = async () => {
     setLoading(true);
-    const fetchedMovies = await fetchMovies(1, 10000); 
-    setAllMovies(fetchedMovies.map(movie => ({
-      ...movie,
-      movie_genre: movie.movie_genre.map(genre => ({
-        ...genre,
-        movie_id: String(genre.movie_id)
+    const fetchedMovies = await fetchMovies(1, 10000);
+    setAllMovies(
+      fetchedMovies.map(movie => ({
+        ...movie,
+        movie_genre: movie.movie_genre.map(genre => ({
+          ...genre,
+          movie_id: String(genre.movie_id)
+        }))
       }))
-    })));
+    );
     setRangeStart(MOVIE_BATCH_SIZE);
     setLoading(false);
   };
@@ -42,13 +44,17 @@ const App = () => {
   };
 
   useEffect(() => {
-    loadInitialMovies(); 
+    loadInitialMovies();
   }, []);
 
-  const filteredMovies = allMovies.filter((movie) => {
-    const matchesSearch = movie.title.toLowerCase().includes(searchQuery.toLowerCase());
+  const filteredMovies = allMovies.filter(movie => {
+    const matchesSearch = movie.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
     const matchesGenre = selectedGenre
-      ? movie.movie_genre.some((genre) => genre.genre.genre_name === selectedGenre)
+      ? movie.movie_genre.some(
+          genre => genre.genre.genre_name === selectedGenre
+        )
       : true;
 
     return matchesSearch && matchesGenre;
@@ -71,8 +77,8 @@ const App = () => {
             />
           }
         />
-        <Route path="/favorite-films/:userId" element={<FavoriteFilms/>} />
-        <Route path="/watched-films/:userId" element={<WatchedFilms/>} />
+        <Route path="/favorite-films/:userId" element={<FavoriteFilms />} />
+        <Route path="/watched-films/:userId" element={<WatchedFilms />} />
         <Route path="/movie/:movieId" element={<MovieDetails />} />
       </Routes>
     </div>

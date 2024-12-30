@@ -5,11 +5,16 @@ import { registerUser } from '../api/auth';
 import '../styles/SignUp.css';
 
 const SignUp = () => {
-  const { register, handleSubmit, formState: { errors }, watch } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch
+  } = useForm();
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     try {
       await registerUser(data);
       setShowModal(true);
@@ -37,11 +42,13 @@ const SignUp = () => {
                 required: 'Username is required',
                 minLength: {
                   value: 3,
-                  message: 'Username must be at least 3 characters',
-                },
+                  message: 'Username must be at least 3 characters'
+                }
               })}
             />
-            {errors.username && <p className="error">{errors.username.message}</p>}
+            {errors.username && (
+              <p className="error">{errors.username.message}</p>
+            )}
           </div>
 
           <div className="form-group">
@@ -54,8 +61,8 @@ const SignUp = () => {
                 required: 'Email is required',
                 pattern: {
                   value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: 'Invalid email format',
-                },
+                  message: 'Invalid email format'
+                }
               })}
             />
             {errors.email && <p className="error">{errors.email.message}</p>}
@@ -71,11 +78,13 @@ const SignUp = () => {
                 required: 'Password is required',
                 minLength: {
                   value: 6,
-                  message: 'Password must be at least 6 characters',
-                },
+                  message: 'Password must be at least 6 characters'
+                }
               })}
             />
-            {errors.password && <p className="error">{errors.password.message}</p>}
+            {errors.password && (
+              <p className="error">{errors.password.message}</p>
+            )}
           </div>
 
           <div className="form-group">
@@ -86,8 +95,8 @@ const SignUp = () => {
               placeholder="Confirm password"
               {...register('confirmPassword', {
                 required: 'Please confirm your password',
-                validate: (value) =>
-                  value === watch('password') || 'Passwords do not match',
+                validate: value =>
+                  value === watch('password') || 'Passwords do not match'
               })}
             />
             {errors.confirmPassword && (

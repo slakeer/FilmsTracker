@@ -22,10 +22,11 @@ export default [
     plugins: {
       prettier: pluginPrettier,
       jest: pluginJest
-    }
+    },
 
-    // rules: {
-    //   'prettier/prettier': 'error'
-    // }
+    rules: {
+      'no-use-before-define': 'off',
+      'react-hooks/exhaustive-deps': 'off'
+    }
   }
 ];

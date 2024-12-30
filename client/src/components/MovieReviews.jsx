@@ -23,7 +23,7 @@ const MovieReviews = ({ movieId }) => {
     loadReviews();
   }, [movieId]);
 
-  const handleSubmitReview = async (e) => {
+  const handleSubmitReview = async e => {
     e.preventDefault();
     if (!newReview.trim() || rating === 0) return;
 
@@ -33,9 +33,9 @@ const MovieReviews = ({ movieId }) => {
         user_id: user.id,
         review_text: newReview,
         rating,
-        review_date: new Date().toISOString().split('T')[0],
+        review_date: new Date().toISOString().split('T')[0]
       });
-      setReviews((prev) => [newReviewData, ...prev]);
+      setReviews(prev => [newReviewData, ...prev]);
       setNewReview('');
       setRating(0);
     } catch (error) {
@@ -54,7 +54,7 @@ const MovieReviews = ({ movieId }) => {
           <div className="rating-container">
             <label className="rating-label">Your Rating</label>
             <div className="stars-container">
-              {[1, 2, 3, 4, 5].map((star) => (
+              {[1, 2, 3, 4, 5].map(star => (
                 <button
                   key={star}
                   type="button"
@@ -73,7 +73,7 @@ const MovieReviews = ({ movieId }) => {
           <textarea
             className="review-textarea"
             value={newReview}
-            onChange={(e) => setNewReview(e.target.value)}
+            onChange={e => setNewReview(e.target.value)}
             placeholder="Share your thoughts about the movie..."
           />
           <button
@@ -91,11 +91,13 @@ const MovieReviews = ({ movieId }) => {
       )}
 
       <div className="reviews-list">
-        {reviews.map((review) => (
+        {reviews.map(review => (
           <div key={review.id} className="review-card">
             <div className="review-header">
               <img
-                src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqdbyPHzVsKST5c13LZteoLb-mIrVyD7FK7Q&s'}
+                src={
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqdbyPHzVsKST5c13LZteoLb-mIrVyD7FK7Q&s'
+                }
                 alt="Reviewer Avatar"
                 className="reviewer-avatar"
               />
@@ -123,7 +125,7 @@ const MovieReviews = ({ movieId }) => {
 };
 
 MovieReviews.propTypes = {
-  movieId: PropTypes.string.isRequired,
+  movieId: PropTypes.string.isRequired
 };
 
 export default MovieReviews;
