@@ -1,5 +1,5 @@
 import express from 'express';
-import passport from "passport";
+import passport from 'passport';
 import cors from 'cors';
 import movieRoutes from './routes/movie-routes.js';
 import genreRoutes from './routes/genre-routes.js';
@@ -12,11 +12,7 @@ import { swaggerDocs, swaggerUi } from './swagger-options.js';
 
 const app = express();
 
-app.use(cors({
-  origin: 'http://localhost:3000',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+app.use(cors()); 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
