@@ -61,8 +61,7 @@ const MovieReviews = ({ movieId }) => {
                   className={`star-btn ${star <= (hoveredStar || rating) ? 'active' : ''}`}
                   onMouseEnter={() => setHoveredStar(star)}
                   onMouseLeave={() => setHoveredStar(0)}
-                  onClick={() => setRating(star)}
-                >
+                  onClick={() => setRating(star)}>
                   <svg className="star-icon" viewBox="0 0 24 24">
                     <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
                   </svg>
@@ -79,8 +78,7 @@ const MovieReviews = ({ movieId }) => {
           <button
             className="submit-button"
             type="submit"
-            disabled={!newReview.trim() || rating === 0}
-          >
+            disabled={!newReview.trim() || rating === 0}>
             Post Review
           </button>
         </form>
@@ -108,8 +106,7 @@ const MovieReviews = ({ movieId }) => {
                     <svg
                       key={i}
                       className={`review-star ${i < review.rating ? 'filled' : ''}`}
-                      viewBox="0 0 24 24"
-                    >
+                      viewBox="0 0 24 24">
                       <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
                     </svg>
                   ))}

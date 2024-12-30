@@ -89,8 +89,7 @@ const FavoriteFilms = () => {
                   <button
                     className={`delete-button ${deleteInProgress === favorite.movie_id ? 'deleting' : ''}`}
                     onClick={() => handleDelete(favorite.movie_id)}
-                    disabled={deleteInProgress === favorite.movie_id}
-                  >
+                    disabled={deleteInProgress === favorite.movie_id}>
                     {deleteInProgress === favorite.movie_id
                       ? 'Removing...'
                       : '×'}
