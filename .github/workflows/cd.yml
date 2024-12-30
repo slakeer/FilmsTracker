@@ -34,7 +34,7 @@ jobs:
         cd client
         curl -X POST \
           -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-          -d '{"service_id":"${{ secrets.CLIENT_SERVICE_ID }}"}'\
+          -d '{"service_id":"${{ secrets.CLIENT_SERVICE_ID }}"}' \
           https://api.render.com/v1/services/deploy
 
   deploy_server:
@@ -60,5 +60,5 @@ jobs:
         cd server
         curl -X POST \
           -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-          -d '{"service_id":"${{ secrets.SERVER_SERVICE_ID }}"}'\
+          -d '{"service_id":"${{ secrets.SERVER_SERVICE_ID }}"}' \
           https://api.render.com/v1/services/deploy
