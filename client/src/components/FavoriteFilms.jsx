@@ -12,7 +12,7 @@ const FavoriteFilms = () => {
 
   useEffect(() => {
     fetchFavoriteMovies();
-  }, [userId]);
+  }, [userId, fetchFavoriteMovies]);
 
   const fetchFavoriteMovies = async () => {
     try {
@@ -25,17 +25,17 @@ const FavoriteFilms = () => {
     }
   };
 
-  const handleDelete = async (movieId) => {
+  const handleDelete = async movieId => {
     try {
       setDeleteInProgress(movieId);
-      setFavoriteMovies(prevMovies => 
+      setFavoriteMovies(prevMovies =>
         prevMovies.filter(movie => movie.movie_id !== movieId)
       );
 
       await removeFromFavorites(userId, movieId);
     } catch (error) {
       setError(`Failed to remove movie: ${error.message}`);
-      await fetchFavoriteMovies(); 
+      await fetchFavoriteMovies();
     } finally {
       setDeleteInProgress(null);
     }
@@ -46,7 +46,7 @@ const FavoriteFilms = () => {
       <div className="films-container">
         <h2 className="films-title">My Favorite Films</h2>
         <div className="films-row">
-          {[1, 2, 3].map((i) => (
+          {[1, 2, 3].map(i => (
             <div key={i} className="film-card loading">
               <div className="film-poster-skeleton"></div>
               <div className="film-info">
@@ -63,9 +63,7 @@ const FavoriteFilms = () => {
   if (error) {
     return (
       <div className="films-container">
-        <div className="error-message">
-          Error loading films: {error}
-        </div>
+        <div className="error-message">Error loading films: {error}</div>
       </div>
     );
   }
@@ -76,37 +74,39 @@ const FavoriteFilms = () => {
       {favoriteMovies.length > 0 ? (
         <div className="films-wrapper">
           <div className="films-row">
-            {favoriteMovies.map((favorite) => (
+            {favoriteMovies.map(favorite => (
               <div key={favorite.movie_id} className="film-card">
                 <div className="film-poster">
-                  <img 
-                    src={favorite.movie.image_path} 
-                    alt={favorite.movie.title} 
+                  <img
+                    src={favorite.movie.image_path}
+                    alt={favorite.movie.title}
                     className="film-image"
                   />
                   <div className="film-rating">
                     <span className="star">★</span>
                     {favorite.movie.tmdb_rating.toFixed(1)}
                   </div>
-                  <button 
+                  <button
                     className={`delete-button ${deleteInProgress === favorite.movie_id ? 'deleting' : ''}`}
                     onClick={() => handleDelete(favorite.movie_id)}
                     disabled={deleteInProgress === favorite.movie_id}
                   >
-                    {deleteInProgress === favorite.movie_id ? 'Removing...' : '×'}
+                    {deleteInProgress === favorite.movie_id
+                      ? 'Removing...'
+                      : '×'}
                   </button>
                 </div>
                 <div className="film-info">
                   <h3 className="film-title">{favorite.movie.title}</h3>
-                  <p className="film-description">{favorite.movie.description}</p>
+                  <p className="film-description">
+                    {favorite.movie.description}
+                  </p>
                   <div className="film-details">
                     <div className="release-date">
                       <span className="icon">📅</span>
                       {new Date(favorite.movie.release_date).getFullYear()}
                     </div>
-                    <div className="film-id">
-                      ID: {favorite.movie_id}
-                    </div>
+                    <div className="film-id">ID: {favorite.movie_id}</div>
                   </div>
                 </div>
               </div>
@@ -114,9 +114,7 @@ const FavoriteFilms = () => {
           </div>
         </div>
       ) : (
-        <div className="empty-state">
-          No favorite films yet.
-        </div>
+        <div className="empty-state">No favorite films yet.</div>
       )}
     </div>
   );

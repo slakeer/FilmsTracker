@@ -11,14 +11,14 @@ const WatchedFilms = () => {
 
   useEffect(() => {
     loadWatchedMovies();
-  }, [userId]);
+  }, [userId, loadWatchedMovies]);
 
   const loadWatchedMovies = async () => {
     setLoading(true);
     try {
       const watchedData = await fetchWatchedMovies(userId);
       const moviesWithDetails = await Promise.all(
-        watchedData.map(async (watched) => {
+        watchedData.map(async watched => {
           const movieData = await fetchMovieDetails(watched.movie_id);
           return {
             ...watched,
@@ -39,7 +39,7 @@ const WatchedFilms = () => {
       <div className={styles.container}>
         <h1 className={styles.title}>My Watched Movies</h1>
         <div className={styles.gridWrapper}>
-          {[1, 2, 3].map((skeleton) => (
+          {[1, 2, 3].map(skeleton => (
             <div key={skeleton} className={styles.movieCard}>
               <div className={styles.skeletonPoster}></div>
               <div className={styles.skeletonContent}>
@@ -65,7 +65,7 @@ const WatchedFilms = () => {
     );
   }
 
-  const formatDate = (dateString) => {
+  const formatDate = dateString => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -77,7 +77,7 @@ const WatchedFilms = () => {
     <div className={styles.container}>
       <h1 className={styles.title}>My Watched Movies</h1>
       <div className={styles.gridWrapper}>
-        {watchedMovies.map((movie) => (
+        {watchedMovies.map(movie => (
           <div key={movie.id} className={styles.movieCard}>
             <div className={styles.posterWrapper}>
               <img
@@ -97,9 +97,7 @@ const WatchedFilms = () => {
               </div>
             </div>
             <div className={styles.content}>
-              <h3 className={styles.movieTitle}>
-                {movie.movieDetails?.title}
-              </h3>
+              <h3 className={styles.movieTitle}>{movie.movieDetails?.title}</h3>
               <div className={styles.metadata}>
                 <div className={styles.metaItem}>
                   <span className={styles.icon}>📅</span>
