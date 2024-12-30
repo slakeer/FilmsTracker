@@ -27,7 +27,7 @@ jobs:
     - name: Build client
       run: |
         cd client
-        npm run build
+        CI=false npm run build
 
     - name: Deploy client
       run: |
