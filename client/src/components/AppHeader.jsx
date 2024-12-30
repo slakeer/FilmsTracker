@@ -75,8 +75,7 @@ const AppHeader = ({ onSearch, onGenreSelect }) => {
             <div className="user-menu" ref={dropdownRef}>
               <button
                 className="avatar-button"
-                onClick={() => setShowDropdown(!showDropdown)}
-              >
+                onClick={() => setShowDropdown(!showDropdown)}>
                 <div className="avatar-container">
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqdbyPHzVsKST5c13LZteoLb-mIrVyD7FK7Q&s"
@@ -141,8 +140,7 @@ const AppHeader = ({ onSearch, onGenreSelect }) => {
             <button
               key={genre}
               className={`genre-button ${selectedGenre === genre ? 'genre-button-active' : ''}`}
-              onClick={() => handleGenreChange(genre)}
-            >
+              onClick={() => handleGenreChange(genre)}>
               {genre}
             </button>
           ))}

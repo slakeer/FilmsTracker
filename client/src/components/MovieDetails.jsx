@@ -69,8 +69,7 @@ const MovieDetails = () => {
     <div className="movie-page">
       <div
         className="hero-section"
-        style={{ backgroundImage: `url(${movieDetails.image_path})` }}
-      >
+        style={{ backgroundImage: `url(${movieDetails.image_path})` }}>
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <div className="poster-container">
@@ -116,8 +115,7 @@ const MovieDetails = () => {
               <button
                 className={`btn-watch ${isWatched ? 'watched' : ''}`}
                 onClick={addToWatched}
-                disabled={isWatched}
-              >
+                disabled={isWatched}>
                 <svg viewBox="0 0 24 24" className="play-icon">
                   <path d="M8 5v14l11-7z" />
                 </svg>
@@ -126,8 +124,7 @@ const MovieDetails = () => {
               <button
                 className={`btn-list ${isFavorite ? 'added' : ''}`}
                 onClick={addToFavorite}
-                disabled={isFavorite}
-              >
+                disabled={isFavorite}>
                 <svg viewBox="0 0 24 24" className="plus-icon">
                   <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z" />
                 </svg>

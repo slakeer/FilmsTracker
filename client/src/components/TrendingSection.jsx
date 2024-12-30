@@ -24,8 +24,7 @@ const TrendingSection = ({ movies, onLoadMore, loading, hasMore }) => {
         <button
           className="load-more-btn"
           onClick={onLoadMore}
-          disabled={loading}
-        >
+          disabled={loading}>
           {loading ? 'Loading...' : 'Find More'}
         </button>
       )}
