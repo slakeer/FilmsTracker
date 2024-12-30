@@ -32,10 +32,7 @@ jobs:
     - name: Deploy client
       run: |
         cd client
-        curl -X POST \
-          -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-          -d '{"service_id":"${{ secrets.CLIENT_SERVICE_ID }}"}' \
-          https://api.render.com/v1/services/deploy
+        curl -X POST -s ${{ secrets.CLIENT_DEPLOY_HOOK }}
 
   deploy_server:
     runs-on: ubuntu-latest
@@ -58,7 +55,4 @@ jobs:
     - name: Deploy server
       run: |
         cd server
-        curl -X POST \
-          -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-          -d '{"service_id":"${{ secrets.SERVER_SERVICE_ID }}"}' \
-          https://api.render.com/v1/services/deploy
+        curl -X POST -s ${{ secrets.SERVER_DEPLOY_HOOK }}
