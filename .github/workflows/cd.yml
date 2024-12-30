@@ -1,0 +1,69 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy_client:
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.event.head_commit.message, 'client') }} 
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js for client
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install client dependencies
+      run: |
+        cd client
+        npm install
+
+    - name: Build client
+      run: |
+        cd client
+        npm run build
+
+    - name: Deploy client
+      run: |
+        cd client
+        curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+          -d '{"service_id":"your-client-service-id"}' \
+          https://api.render.com/v1/services/deploy
+
+  deploy_server:
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.event.head_commit.message, 'server') }} 
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js for server
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install server dependencies
+      run: |
+        cd server
+        npm install
+
+    - name: Build server
+      run: |
+        cd server
+        npm start
+
+    - name: Deploy server
+      run: |
+        cd server
+        curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+          -d '{"service_id":"server-service-id"}' \
+          https://api.render.com/v1/services/deploy
