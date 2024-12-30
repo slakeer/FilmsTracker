@@ -1,5 +1,5 @@
-import { fetchGenres } from './fetch_genres.js';
-import { fetchMovies } from './fetch_movies.js';
+import { fetchGenres } from './fetch-genres.js';
+import { fetchMovies } from './fetch-movies.js';
 import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
 //перейди в директорію scripts і запусти node parse_data
