@@ -64,6 +64,11 @@ jobs:
         run: |
           cd server
           npx eslint .
+          
+      - name: Run Prettier for server
+        run: |
+          cd client
+          npx prettier --write .
 
       - name: Run Tests for server
         run: |
