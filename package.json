@@ -1,13 +1,18 @@
 {
   "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
     "concurrently": "^9.1.0",
-    "husky": "^8.0.3",
+    "husky": "^9.1.7",
     "lint-staged": "^15.2.10"
   },
   "scripts": {
     "client": "npm start --prefix client",
     "server": "cd server && node index.js",
-    "dev": "concurrently \"npm run client\" \"npm run server\""
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "release": "standard-version"
+  },
+  "dependencies": {
+    "standard-version": "^9.5.0"
   }
- 
 }
